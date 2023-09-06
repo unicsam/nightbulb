@@ -39,7 +39,7 @@ public class MainActivity extends Activity {
                         }
 
                         // Update the ProgressBar
-                        int progress = (int) (newBrightness * 100); // Scale to 0-100 range
+                        int progress = (int) (newBrightness * 100); // Scale to 0-100range
                         brightnessProgressBar.setProgress(progress);
 
                         Log.d("Brightness", "Progress: " + progress);
