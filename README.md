@@ -9,7 +9,8 @@ features:
 upcoming feautures:
 
   keep screen awake
-  
+
+	
   show time on screen as big digital clock (segmented display)
     show weather based on location (optional)
     
