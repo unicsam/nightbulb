@@ -28,6 +28,7 @@ public class MainActivity extends Activity {
                     case MotionEvent.ACTION_DOWN:
                         // Save initial brightness
                         initialBrightness = getWindow().getAttributes().screenBrightness;
+                        brightnessProgressBar.setVisibility(View.VISIBLE); //// Show the ProgressBar when touched
                         break;
                     case MotionEvent.ACTION_MOVE:
                         // Calculate new brightness based on Y coordinate
@@ -50,6 +51,17 @@ public class MainActivity extends Activity {
                         layoutParams.screenBrightness = newBrightness;
                         getWindow().setAttributes(layoutParams);
 
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+
+                        // Hide the ProgressBar when touch event ends
+                        try {
+                            Thread.sleep(300); // Sleep for 0.3 second (300 milliseconds)
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        brightnessProgressBar.setVisibility(View.GONE);
                         break;
                 }
                 return true;
