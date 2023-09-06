@@ -6,8 +6,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
+import javax.xml.transform.sax.TemplatesHandler;
 
 public class MainActivity extends Activity {
+    private WakeLock stayAwake;
     private float initialBrightness = 1.0f; // Initial brightness value
 
     ProgressBar brightnessProgressBar; // Declare the ProgressBar variable
@@ -18,10 +20,12 @@ public class MainActivity extends Activity {
 
         brightnessProgressBar = findViewById(R.id.brightnessProgressBar);
 
+        stayAwake = new WakeLock(this); //
 
         final View mainLayout = findViewById(R.id.mainLayout);
 
         mainLayout.setOnTouchListener(new View.OnTouchListener() {
+
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
@@ -32,7 +36,8 @@ public class MainActivity extends Activity {
                         break;
                     case MotionEvent.ACTION_MOVE:
                         // Calculate new brightness based on Y coordinate
-                        float newBrightness = event.getY() / v.getHeight();
+                        float newBrightness = event.getY() / ((v.getHeight()));
+
                         if (newBrightness > 1.0f) {
                             newBrightness = 1.0f;
                         } else if (newBrightness < 0.0f) {
@@ -41,14 +46,15 @@ public class MainActivity extends Activity {
 
                         // Update the ProgressBar
                         int progress = (int) (newBrightness * 100); // Scale to 0-100range
-                        brightnessProgressBar.setProgress(progress);
+
+                        brightnessProgressBar.setProgress(100-progress);//100 - to reverse progress bar
 
                         Log.d("Brightness", "Progress: " + progress);
 
 
                         // Apply the new brightness
                         WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
-                        layoutParams.screenBrightness = newBrightness;
+                        layoutParams.screenBrightness = 1-newBrightness; //1-  to reverse the dragging direction
                         getWindow().setAttributes(layoutParams);
 
                         break;
@@ -67,5 +73,18 @@ public class MainActivity extends Activity {
                 return true;
             }
         });
+
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        stayAwake.wake(); // Acquire the WakeLock when the activity resumes
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stayAwake.release(); // Release the WakeLock when the activity pauses
+    }
+
+
 }
