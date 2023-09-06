@@ -4,10 +4,9 @@ This app turns your phone into night lamp, for people who are afried of dark
 
 features:
 simple screeen sliding brighness contorl
+keeps screen awake
 
 upcoming feautures:
-
-keep screen awake
 
 show time on screen as big digital clock (segmented display)
 show weather based on location (optional)
