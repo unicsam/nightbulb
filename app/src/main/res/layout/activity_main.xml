@@ -8,13 +8,23 @@
     android:background="#FFFFFF"
     tools:context=".MainActivity">
 
-    <ProgressBar
-        android:id="@+id/brightnessProgressBar"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:max="100"
-        android:progress="10"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:visibility="gone" /> <!-- Initially hidden -->/>
+        android:layout_height="match_parent">
+
+        <!-- Add any other views or elements here -->
+
+        <ProgressBar
+            android:id="@+id/brightnessProgressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:max="100"
+            android:progress="10"
+            android:visibility="visible"
+            android:rotation="270"
+            android:layout_gravity="right|bottom"
+            /> <!-- Align to the right and bottom -->
+        </FrameLayout>
 
 </RelativeLayout>
